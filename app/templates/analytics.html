@@ -1,0 +1,31 @@
+{% extends "base.html" %}{% block title %}Analytics — ProjectActionGraph{% endblock %}
+{% block content %}
+<div class="pagehead"><h2>Analytics</h2><span class="count">completion {{ ov.completion_rate }}% · review rate {{ review_rate }}% · avg conf {{ avg_conf }}</span></div>
+<div class="kpis">
+  <div class="kpi"><b>{{ ov.completion_rate }}%</b><span>completion</span></div>
+  <div class="kpi"><b>{{ ov.overdue }}</b><span>overdue</span></div>
+  <div class="kpi"><b>{{ ov.explicit }} / {{ ov.implicit }}</b><span>explicit / implicit</span></div>
+  <div class="kpi"><b>{{ ov.review_queue }}</b><span>in review</span></div>
+</div>
+<div class="grid2">
+  <div class="card"><h3>Owner workload (open vs done)</h3><canvas id="chOwners"></canvas></div>
+  <div class="card"><h3>Confidence distribution</h3><canvas id="chConf"></canvas></div>
+  <div class="card"><h3>Status breakdown</h3><canvas id="chStatus"></canvas></div>
+  <div class="card"><h3>Explicit vs implicit</h3><canvas id="chCommit"></canvas></div>
+</div>
+<div class="card"><h3>Overdue by owner</h3>
+<table><tr><th>Owner</th><th>Overdue</th></tr>{% for o in overdue %}<tr><td>{{ o.owner }}</td><td>{{ o.n }}</td></tr>{% endfor %}</table></div>
+<div class="card"><h3>Actions per meeting</h3>
+<table><tr><th>Meeting</th><th>Actions</th><th>Done</th></tr>{% for p in per_meet %}<tr><td>{{ p.title }}</td><td>{{ p.n_actions }}</td><td>{{ p.n_done }}</td></tr>{% endfor %}</table></div>
+{% endblock %}
+{% block scripts %}<script>
+const owners = {{ owners|tojson }}; const status = {{ status|tojson }};
+const commit = {{ commit|tojson }}; const conf = {{ conf|tojson }};
+try {
+new Chart(chOwners, {type:'bar', data:{labels: owners.map(o=>o.owner),
+ datasets:[{label:'open', data: owners.map(o=>o.open_n)},{label:'done', data: owners.map(o=>o.done_n)}]}, options:{plugins:{legend:{labels:{color:'#334155'}}}, scales:{x:{ticks:{color:'#64748b'}},y:{ticks:{color:'#64748b'}}}}});
+new Chart(chConf, {type:'bar', data:{labels: conf.map(c=>c.bin), datasets:[{label:'items', data: conf.map(c=>c.n)}]}});
+new Chart(chStatus, {type:'doughnut', data:{labels: status.map(s=>s.status), datasets:[{data: status.map(s=>s.n)}]}});
+new Chart(chCommit, {type:'pie', data:{labels: commit.map(c=>c.commitment_type), datasets:[{data: commit.map(c=>c.n)}]}});
+} catch(e){ console.warn('charts need internet CDN', e); }
+</script>{% endblock %}

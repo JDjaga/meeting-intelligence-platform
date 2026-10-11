@@ -1,0 +1,11 @@
+Anita: Okay, weekly sales sync. Decision first — we agreed to drop the freemium tier for enterprise leads, paid pilot only. Final call.
+Rohan: Agreed. Also decided: discounts above 15% need manager approval now.
+Anita: Rohan, you will send the revised pricing sheet to all reps by Friday. Confirm?
+Rohan: I'll send the revised pricing sheet by Friday, confirmed.
+Sana: Hmm, someone should update the CRM stages... half the deals are still in the wrong column lol.
+Anita: Good point. Sana, can you take a look at the CRM cleanup?
+Sana: I'll take a look at the CRM stages tomorrow, sure.
+Rohan: We're blocked on the new quote template — waiting on finance sign-off, can't proceed without it.
+Anita: Action: Anita to chase finance for the quote template approval by tomorrow.
+Karan: Sorry, joined late — I'll get back with the competitor pricing analysis, probably next week, not sure yet.
+Anita: So — freemium dropped, discount rule set, pricing sheet Friday, CRM cleanup, template approval, competitor analysis. Done.

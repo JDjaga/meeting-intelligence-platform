@@ -1,0 +1,11 @@
+Vikram: Incident retro for the outage yesterday. Decision: we will add a read replica for orders DB, that's the final call.
+Neha: Agreed. Also we decided to page on-call when replication lag crosses 30s.
+Vikram: Neha, you will complete the runbook update by Monday. Confirm?
+Neha: I will complete the runbook update by Monday, confirmed.
+Farhan: Someone should verify the backup restore actually works... we never tested it lol.
+Vikram: Farhan, please take ownership — can you look into backup restore testing?
+Farhan: I'll look into it, yeah, I'll take a look this week.
+Neha: We're blocked: can't proceed with failover drill until infra approves the maintenance window.
+Vikram: Action: Vikram to request the maintenance window from infra by tomorrow.
+Farhan: Let's also document the timeline... I'll get to it when I can.
+Vikram: Okay — replica, paging, runbook Monday, restore test, window request. Thanks all.

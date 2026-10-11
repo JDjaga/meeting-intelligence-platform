@@ -1,0 +1,109 @@
+{
+  "per_case": {
+    "sprint_planning": {
+      "explicit": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "implicit": {
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75,
+        "tp": 3,
+        "fp": 2,
+        "fn": 0
+      },
+      "overall": {
+        "precision": 0.714,
+        "recall": 1.0,
+        "f1": 0.833,
+        "tp": 5,
+        "fp": 2,
+        "fn": 0
+      },
+      "hallucination_rate": 0.0,
+      "n_pred": 7,
+      "n_gold": 5
+    },
+    "design_review": {
+      "explicit": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "implicit": {
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.857,
+        "tp": 3,
+        "fp": 1,
+        "fn": 0
+      },
+      "overall": {
+        "precision": 0.833,
+        "recall": 1.0,
+        "f1": 0.909,
+        "tp": 5,
+        "fp": 1,
+        "fn": 0
+      },
+      "hallucination_rate": 0.0,
+      "n_pred": 6,
+      "n_gold": 5
+    },
+    "incident_retro": {
+      "explicit": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "implicit": {
+        "precision": 0.5,
+        "recall": 0.667,
+        "f1": 0.571,
+        "tp": 2,
+        "fp": 2,
+        "fn": 1
+      },
+      "overall": {
+        "precision": 0.667,
+        "recall": 0.8,
+        "f1": 0.727,
+        "tp": 4,
+        "fp": 2,
+        "fn": 1
+      },
+      "hallucination_rate": 0.0,
+      "n_pred": 6,
+      "n_gold": 5
+    }
+  },
+  "macro": {
+    "explicit": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "implicit": {
+      "precision": 0.617,
+      "recall": 0.889,
+      "f1": 0.726
+    },
+    "overall": {
+      "precision": 0.738,
+      "recall": 0.933,
+      "f1": 0.823
+    }
+  },
+  "macro_hallucination_rate": 0.0
+}

@@ -1,0 +1,14 @@
+# Secrets — never push these to GitHub
+.env
+
+# Local runtime data (regenerable)
+data/meetings.db
+data/uploads/
+data/analytics/
+
+# Python noise
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/

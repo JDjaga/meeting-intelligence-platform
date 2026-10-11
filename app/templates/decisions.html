@@ -1,0 +1,43 @@
+{% extends "base.html" %}{% block title %}Decisions — ProjectActionGraph{% endblock %}
+{% block content %}
+<div class="pagehead"><h2>Decisions log</h2><span class="count">grouped by meeting · agreed outcomes with cited evidence</span></div>
+<div class="card"><form class="filters" method="get" action="/decisions">
+  <div><label>Meeting</label><select name="meeting" onchange="this.form.submit()"><option value="">all meetings</option>
+  {% for m in meetings %}<option value="{{ m.id }}" {% if f_meeting==m.id|string %}selected{% endif %}>#{{ m.id }} {{ m.title }}</option>{% endfor %}</select></div>
+</form></div>
+<div class="card">{% if groups %}<div class="table-wrap"><table><tr><th>Decision</th><th>Rationale</th><th>Evidence</th><th>Conf</th></tr>
+{% for g in groups %}
+<tr class="group"><td colspan="4"><a href="/meetings/{{ g.meeting_id }}">#{{ g.meeting_id }} {{ g.meeting_title }}</a> — {{ g["items"]|length }} decision(s)</td></tr>
+{% for d in g["items"] %}<tr>
+<td>{{ d.decision }}</td><td class="ev">{{ d.rationale or '—' }}</td><td class="ev">“{{ d.evidence[:130] }}”</td><td>{{ '%.2f'|format(d.confidence) }}</td></tr>{% endfor %}
+{% endfor %}</table></div>{% else %}<p class="empty">No decisions yet. They appear here after you ingest a meeting.</p>{% endif %}</div>
+<div class="card"><h3>Ask about your meetings</h3>
+<p class="count">Any question — deadlines, owners, decisions, blockers, summaries, or just say hello. Answers cite the meeting and exact quote.</p>
+<div class="filters">
+  <button class="btn-sm chip" data-q="What is overdue?">Overdue?</button>
+  <button class="btn-sm chip" data-q="What are the deadlines?">Deadlines?</button>
+  <button class="btn-sm chip" data-q="What did we decide?">Decisions?</button>
+  <button class="btn-sm chip" data-q="What is blocking us?">Blockers?</button>
+  <button class="btn-sm chip" data-q="Summarise everything">Summarise everything</button>
+</div>
+<div class="filters"><input id="chatq" style="flex:1;min-width:240px" placeholder="e.g. What is pending for Ritu?"><button onclick="askChat()">Ask</button></div>
+<div id="chatans" class="empty">Answers appear here with cited evidence.</div>
+</div>
+{% endblock %}
+{% block scripts %}<script>
+document.querySelectorAll('.chip').forEach(b => b.onclick = () => { chatq.value = b.dataset.q; askChat(); });
+async function askChat(){
+  const q = chatq.value.trim();
+  if (q.length < 2) { chatans.textContent = 'Type a question first.'; return; }
+  chatans.textContent = 'Thinking…';
+  const r = await fetch('/api/chat',
+    {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({question: q})});
+  const d = await r.json();
+  if (!r.ok) { chatans.textContent = d.detail || 'Chat failed.'; return; }
+  const esc = s => s.replace(/</g,'&lt;');
+  let html = '<p style="white-space:pre-wrap">' + esc(d.answer) + '</p>';
+  (d.evidence || []).forEach(e => { html += '<p class="ev">[' + esc(e.meeting) + '] “' + esc(e.quote) + '”</p>'; });
+  html += '<p class="count">answered via: ' + esc(d.method || 'offline') + '</p>';
+  chatans.innerHTML = html;
+}
+</script>{% endblock %}

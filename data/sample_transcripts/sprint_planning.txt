@@ -1,0 +1,11 @@
+Priya: Alright, sprint planning, let's keep it tight. We decided to go with Postgres for the new billing service — Mongo was overkill.
+Arjun: Yeah agreed. Decision: Postgres for billing, final call.
+Priya: Arjun, you'll finish the schema migration by Friday, right?
+Arjun: I'll finish the schema migration by Friday, yes. Promise.
+Meera: Umm, someone should check whether the staging DB has enough disk... it's at like 85%.
+Priya: Good catch. Meera, can you take a look at staging disk usage?
+Meera: I'll take a look at the staging disk tonight, sure.
+Arjun: Oh and we're blocked on the payment gateway sandbox — waiting on Razorpay credentials, can't proceed without them.
+Priya: Noted. Action: Priya to email Razorpay support for sandbox keys by tomorrow.
+Rahul: Hey sorry I'm late. I'll get back with the load test numbers... maybe by next week, not sure.
+Priya: Okay so to recap — Postgres decided, migration Friday, disk check, sandbox keys, load numbers. Let's move.

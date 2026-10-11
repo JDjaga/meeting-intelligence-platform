@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}ProjectActionGraph{% endblock %}</title>
+<link rel="stylesheet" href="/static/app.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head><body>
+<header>
+<div><h1>ProjectActionGraph <span class="tag">Meeting Intelligence</span></h1><div class="sub">Transcript or audio in, structured decisions and action items out</div></div>
+<div class="sub">Today: {{ today }} &nbsp;·&nbsp; <a href="/api/stats">API</a> &nbsp;·&nbsp; <a href="/api/export/actions">export JSON</a></div>
+</header>
+<nav><div class="nav-inner">
+<a href="/" class="{% if active=='overview' %}active{% endif %}">Home</a>
+<a href="/meetings" class="{% if active=='meetings' %}active{% endif %}">Meetings</a>
+<a href="/actions" class="{% if active=='actions' %}active{% endif %}">Action items</a>
+<a href="/decisions" class="{% if active=='decisions' %}active{% endif %}">Decisions</a>
+<a href="/analytics" class="{% if active=='analytics' %}active{% endif %}">Analytics</a>
+<a href="/review" class="{% if active=='review' %}active{% endif %}">Review queue{% if review_count %} ({{ review_count }}){% endif %}</a>
+<a href="/upload" class="{% if active=='upload' %}active{% endif %}">New meeting</a>
+</div></nav>
+<div class="wrap">{% block content %}{% endblock %}</div>
+<script>
+async function approve(id){ const owner = prompt('Confirm/correct owner:') || undefined;
+ await fetch('/api/actions/'+id+'/approve',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(owner?{owner}:{})}); location.reload(); }
+async function done(id){ await fetch('/api/actions/'+id+'/status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({status:'done'})}); location.reload(); }
+async function reopen(id){ await fetch('/api/actions/'+id+'/status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({status:'open'})}); location.reload(); }
+</script>
+{% block scripts %}{% endblock %}
+<footer>ProjectActionGraph — every action item carries its transcript evidence and confidence score</footer>
+</body></html>

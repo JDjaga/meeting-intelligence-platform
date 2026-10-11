@@ -1,0 +1,55 @@
+{% extends "base.html" %}{% block title %}ProjectActionGraph — meeting in, actions out{% endblock %}
+{% block content %}
+<div class="hero">
+  <h2>Paste a meeting. Get the actions.</h2>
+  <p>ProjectActionGraph turns a messy transcript or recording into <b>decisions, action items,
+  owners and deadlines</b> — every item quoted from your transcript and confidence-scored.
+  Vague promises go to a human review queue instead of slipping through.</p>
+  <div class="cta-row">
+    <a href="/upload"><button>Upload a meeting</button></a>
+    <form method="post" action="/demo/sales" style="display:inline"><button class="btn-ghost" type="submit">Load sample: sales meeting</button></form>
+    <form method="post" action="/demo/brainstorm" style="display:inline"><button class="btn-ghost" type="submit">Load sample: brainstorm</button></form>
+  </div>
+</div>
+
+<div class="section-title">How it works — 3 steps</div>
+<div class="steps">
+  <div class="step"><span class="n">1</span><h4>Give it a meeting</h4><p>Upload a transcript (.txt/.srt/.vtt) or audio (.mp3/.wav), or load a 1-click demo above. Speech-to-text runs automatically for audio.</p></div>
+  <div class="step"><span class="n">2</span><h4>AI structures it</h4><p>Explicit promises ("I'll finish Friday") and soft ones ("I'll take a look") become <b>action · owner · deadline · confidence · evidence</b> — never free-form text.</p></div>
+  <div class="step"><span class="n">3</span><h4>Review &amp; track</h4><p>Low-confidence items wait in the <a href="/review">review queue</a>. Open items carry into the next meeting; overdue and analytics live on this site.</p></div>
+</div>
+
+<div class="section-title">What one extracted item looks like</div>
+<div class="example">
+  <div class="row"><span class="k">action</span><span>Send the revised pricing sheet to all reps</span></div>
+  <div class="row"><span class="k">owner</span><span>Rohan</span><span class="k">deadline</span><span>2026-10-17</span><span class="k">confidence</span><span>0.85 · explicit</span></div>
+  <div class="row"><span class="k">evidence</span><span class="ev">"I will send the revised pricing sheet by Friday, confirmed."</span></div>
+</div>
+
+<div class="section-title">Your workspace right now</div>
+<div class="kpis">
+  <div class="kpi"><b>{{ ov.meetings }}</b><span>meetings</span></div>
+  <div class="kpi"><b>{{ ov.actions }}</b><span>action items</span></div>
+  <div class="kpi"><b>{{ ov.open }}</b><span>open / carried</span></div>
+  <div class="kpi"><b>{{ ov.overdue }}</b><span>overdue</span></div>
+  <div class="kpi"><b>{{ ov.review_queue }}</b><span>needs review</span></div>
+  <div class="kpi"><b>{{ ov.decisions }}</b><span>decisions</span></div>
+  <div class="kpi"><b>{{ ov.completion_rate }}%</b><span>completion</span></div>
+  <div class="kpi"><b>{{ ov.explicit }} / {{ ov.implicit }}</b><span>explicit / implicit</span></div>
+</div>
+<div class="grid2">
+  <div class="card"><h3>Status breakdown</h3><canvas id="chStatus"></canvas><p class="count"><a href="/actions">See all action items →</a></p></div>
+  <div class="card"><h3>Explicit vs implicit</h3><canvas id="chCommit"></canvas><p class="count"><a href="/analytics">Full analytics →</a></p></div>
+</div>
+<div class="card"><h3>Latest meetings</h3>
+{% if recent %}<div class="table-wrap"><table><tr><th>#</th><th>Title</th><th>Date</th><th>Summary</th></tr>
+{% for m in recent %}<tr><td>{{ m.id }}</td><td><a href="/meetings/{{ m.id }}">{{ m.title }}</a></td><td>{{ m.meeting_date or '—' }}</td><td class="ev">{{ m.summary[:140] }}</td></tr>{% endfor %}</table></div>
+{% else %}<p class="empty">No meetings yet. Upload one above or load a sample to see this workspace fill in.</p>{% endif %}</div>
+{% endblock %}
+{% block scripts %}<script>
+const status = {{ status|tojson }}; const commit = {{ commit|tojson }};
+try {
+new Chart(chStatus, {type:'doughnut', data:{labels: status.map(s=>s.status), datasets:[{data: status.map(s=>s.n)}]}});
+new Chart(chCommit, {type:'pie', data:{labels: commit.map(c=>c.commitment_type), datasets:[{data: commit.map(c=>c.n)}]}});
+} catch(e){ console.warn('charts need internet CDN', e); }
+</script>{% endblock %}

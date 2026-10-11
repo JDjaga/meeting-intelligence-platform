@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Meetings — ProjectActionGraph{% endblock %}
+{% block content %}
+<div class="pagehead"><h2>Meetings ({{ meetings|length }})</h2><a href="/upload"><button>New meeting</button></a></div>
+{% if meetings %}<div class="card"><div class="table-wrap"><table><tr><th>#</th><th>Title</th><th>Date</th><th>Attendees</th><th>Summary</th></tr>
+{% for m in meetings %}<tr><td>{{ m.id }}</td><td><a href="/meetings/{{ m.id }}">{{ m.title }}</a></td>
+<td>{{ m.meeting_date or '—' }}</td><td class="ev">{{ m.attendees }}</td><td class="ev">{{ m.summary[:180] }}</td></tr>{% endfor %}</table></div></div>
+{% else %}<div class="card"><p class="empty">No meetings yet. Go to <a href="/upload">New meeting</a> to ingest your first transcript or recording.</p></div>{% endif %}
+{% endblock %}

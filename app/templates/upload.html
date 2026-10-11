@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block title %}New meeting — ProjectActionGraph{% endblock %}
+{% block content %}
+<div class="pagehead"><h2>Ingest a meeting</h2><span class="count">step 1 of 3: transcript/audio in → structured actions out</span></div>
+<form class="upload" action="/upload" method="post" enctype="multipart/form-data">
+  <div><label>Meeting title</label><input name="title" placeholder="e.g. Sprint Planning" required></div>
+  <div><label>Date (YYYY-MM-DD)</label><input name="meeting_date" placeholder="2026-10-11"></div>
+  <div><label>Carry open actions from meeting # (optional)</label><input name="carry_from" placeholder="e.g. 1"></div>
+  <div><label>File (transcript, document or audio)</label><input type="file" name="file" accept=".txt,.md,.srt,.vtt,.pdf,.docx,.mp3,.wav,.m4a,.ogg,.flac" required></div>
+  <div><button type="submit">Ingest + Extract</button></div>
+</form>
+<p class="count">Tip: paste your <b>GEMINI_API_KEY</b> in the <b>.env</b> file for real-LLM extraction and smarter chat; otherwise the offline evidence-grounded extractor runs.</p>
+<div class="card"><h3>Reset workspace</h3>
+<p class="count">Deletes every meeting, action, decision and blocker. Use this to clear test rows and start clean.</p>
+<button class="btn-ghost" style="color:var(--bad);border-color:var(--bad)" onclick="if(confirm('Delete ALL meetings and actions?')){fetch('/api/reset',{method:'POST'}).then(()=>location.href='/')}">Reset workspace</button></div>
+{% endblock %}

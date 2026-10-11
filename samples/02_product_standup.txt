@@ -1,0 +1,9 @@
+Manoj: Standup, go. Quick decision: we will freeze the API contract today, no more breaking changes this sprint. Approved.
+Divya: Yes please. I will complete the auth middleware refactor by tomorrow, I'll do that.
+Manoj: Nice. Also let's clean up the dead feature flags... they're piling up.
+Divya: Maybe we should audit the flags first before deleting anything? Just a thought.
+Tarun: I'll have a look at the flaky payment tests and post what I find soon.
+Manoj: Blocker — stuck waiting on DevOps for the staging deploy permissions, that blocks the QA pass.
+Tarun: Action item: Tarun to draft the QA checklist by EOD today.
+Divya: And I'll sync up with design about the empty-state screens, probably this week.
+Manoj: API frozen, auth refactor tomorrow, flag audit, flaky tests, deploy perms, checklist. Move fast.

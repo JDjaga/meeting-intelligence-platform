@@ -1,0 +1,9 @@
+Kavya: Design review... so, we agreed the checkout flow keeps single-page, no multi-step. Approved.
+Dev: Hmm okay. I will send the updated Figma link by tomorrow morning, I'll do that.
+Kavya: Great. Also let's simplify the coupon banner... it confuses users.
+Dev: Maybe we should A/B test the banner first? Just a thought.
+Sara: I'll have a look at the analytics for coupon clicks and share something soon.
+Kavya: Blocker — we're stuck waiting on legal for the refund policy text, that blocks the footer copy.
+Dev: Action item: Dev to draft footer placeholder copy by EOD today.
+Sara: Oh, and I'll sync up with support about top complaints, probably this week.
+Kavya: Decisions: single-page checkout stays. Actions noted. Done.

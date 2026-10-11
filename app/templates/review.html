@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% block title %}Review queue — ProjectActionGraph{% endblock %}
+{% block content %}
+<div class="pagehead"><h2>Human review queue ({{ total }})</h2><span class="count">grouped by meeting · confidence &lt; 0.60 · missing owner · weak evidence</span></div>
+<div class="card"><form class="filters" method="get" action="/review">
+  <div><label>Meeting</label><select name="meeting" onchange="this.form.submit()"><option value="">all meetings</option>
+  {% for m in meetings %}<option value="{{ m.id }}" {% if f_meeting==m.id|string %}selected{% endif %}>#{{ m.id }} {{ m.title }}</option>{% endfor %}</select></div>
+</form></div>
+<div class="card">{% if groups %}<div class="table-wrap"><table><tr><th class="num">ID</th><th>Action</th><th>Owner</th><th class="num">Conf</th><th>Type</th><th>Reason</th><th>Evidence</th><th>Fix</th></tr>
+{% for g in groups %}
+<tr class="group"><td colspan="8"><a href="/meetings/{{ g.meeting_id }}">#{{ g.meeting_id }} {{ g.meeting_title }}</a> — {{ g["items"]|length }} item(s) to review</td></tr>
+{% for r in g["items"] %}<tr>
+<td class="num">{{ r.id }}</td>
+<td>{{ r.action }}</td><td>{{ r.owner or '—' }}</td><td class="num">{{ '%.2f'|format(r.confidence) }}</td>
+<td><span class="pill {{ r.commitment_type }}">{{ r.commitment_type }}</span></td>
+<td class="ev">{{ r.review_reason }}</td><td class="ev">“{{ r.evidence }}”</td>
+<td class="fixcell"><button class="btn-sm" onclick="approve({{ r.id }})">Approve</button> <button class="btn-sm" onclick="done({{ r.id }})">Done</button></td>
+</tr>{% endfor %}
+{% endfor %}</table></div>{% else %}<p class="empty">Queue empty — all items are high-confidence and grounded.</p>{% endif %}</div>
+{% endblock %}

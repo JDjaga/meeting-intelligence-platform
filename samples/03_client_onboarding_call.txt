@@ -1,0 +1,11 @@
+Nisha: Welcome, onboarding kickoff for Acme Corp. Decision: we will go live in two phases — pilot with 50 users first, then full rollout. That's the final call.
+Amit (Acme): Agreed. We also decided SSO via Okta is mandatory before go-live.
+Nisha: Amit, you will share the Okta metadata and test accounts by Monday. Confirm?
+Amit (Acme): I will share the Okta metadata and test accounts by Monday, confirmed.
+Kunal: Someone should verify the data migration dry-run actually worked... we only eyeballed it last time.
+Nisha: Kunal, please own that — can you look into the migration dry-run validation?
+Kunal: I'll look into it this week, yeah, I'll take a look.
+Amit (Acme): We're blocked: can't proceed with user training until legal approves the DPA, still waiting on them.
+Nisha: Action: Nisha to send the DPA reminder to legal by tomorrow.
+Kunal: Let's also prepare the go-live runbook... I'll get to it when I can.
+Nisha: Recap — two-phase launch, Okta Monday, migration check, DPA reminder, runbook. Thanks everyone!

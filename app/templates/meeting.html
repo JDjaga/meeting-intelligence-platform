@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% block title %}Meeting #{{ m.id }} — {{ m.title }}{% endblock %}
+{% block content %}
+<div class="pagehead"><h2>#{{ m.id }} {{ m.title }}</h2><span class="count">{{ m.meeting_date or 'no date' }} · attendees: {{ m.attendees }} · <a href="/meetings">← all meetings</a></span></div>
+<div class="steps" style="margin-bottom:12px">
+  <div class="step"><span class="n done">1</span><h4>Ingested</h4><p>transcript stored with summary</p></div>
+  <div class="step"><span class="n done">2</span><h4>Structured</h4><p>{{ decisions|length }} decisions, {{ actions|length }} actions, all evidence-quoted</p></div>
+  <div class="step"><span class="n">3</span><h4>Review and track</h4><p><a href="/review">review queue</a> · <a href="/actions">track status</a> · <a href="/analytics">analytics</a></p></div>
+</div>
+<div class="card"><h3>Summary</h3><p>{{ m.summary }}</p>
+<h3>Transcript</h3><p class="ev" style="white-space:pre-wrap">{{ m.transcript }}</p></div>
+<div class="card"><h3>Decisions ({{ decisions|length }})</h3>
+<table><tr><th>Decision</th><th>Evidence</th><th>Conf</th></tr>
+{% for d in decisions %}<tr><td>{{ d.decision }}</td><td class="ev">“{{ d.evidence }}”</td><td>{{ '%.2f'|format(d.confidence) }}</td></tr>{% endfor %}</table></div>
+<div class="card"><h3>Action items ({{ actions|length }})</h3>
+<table><tr><th>Action</th><th>Owner</th><th>Deadline</th><th>Conf</th><th>Type</th><th>Status</th><th>Evidence</th></tr>
+{% for a in actions %}<tr><td>{{ a.action }} {% if a.needs_review %}<span class="pill review">review: {{ a.review_reason }}</span>{% endif %}</td>
+<td>{{ a.owner or '—' }}</td><td>{{ a.deadline or '—' }}</td><td>{{ '%.2f'|format(a.confidence) }}</td>
+<td><span class="pill {{ a.commitment_type }}">{{ a.commitment_type }}</span></td>
+<td><span class="pill {{ a.status }}">{{ a.status }}</span></td><td class="ev">“{{ a.evidence }}”</td></tr>{% endfor %}</table></div>
+<div class="card"><h3>Blockers</h3><ul>{% for b in blockers %}<li>{{ b.blocker }} <span class="ev">— “{{ b.evidence }}”</span></li>{% endfor %}</ul></div>
+{% endblock %}

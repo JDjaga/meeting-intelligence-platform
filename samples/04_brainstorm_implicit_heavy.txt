@@ -1,0 +1,7 @@
+Ritu: Brainstorm, no bad ideas. Hmm... maybe we should try a referral leaderboard? Could boost invites.
+Sahil: Ooh, I like that. I might take a look at what Duolingo does for referrals and share some notes... sometime.
+Ritu: Yeah, someone should really dig into why activation dropped last month... the dashboard looks off.
+Sahil: Let's revisit the onboarding email copy too... it feels stale, we should probably rewrite it at some point.
+Ritu: Perhaps we could run a small user survey? Just five questions, nothing big.
+Sahil: I'll sync up with data about the funnel numbers, likely this week or next, we'll see.
+Ritu: Okay... so, vague list: referral ideas, competitor peek, activation mystery, email rewrite, survey, funnel numbers. Nothing committed firmly — let's sleep on it.
